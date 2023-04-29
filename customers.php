@@ -29,13 +29,13 @@
 			<div class="collapse navbar-collapse" id="evergreenNavbar">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end">
 					<li class="nav-item">
-						<a class="nav-link active" href="add-new.html">Customers</a>
+						<a class="nav-link active" href="customers.php">Customers</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="add-new.html">Add new</a>
+						<a class="nav-link" href="add-new.php">Add new</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="add-new.html">Logout</a>
+						<a class="nav-link" href="add-new.php">Logout</a>
 					</li>
 				</ul>
 			</div>
