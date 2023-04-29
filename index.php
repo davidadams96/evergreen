@@ -19,6 +19,18 @@
 	
 </head>
 
-<body>
+<body id="loginPage">
+	
+	<div class="eg-box">
+		<h1>Sign in</h1>
+		<form method="post" class="login-form">
+			<label>Email or username</label>
+			<input class="form-control eg-input" type="text" name="username" />
+			<label>Password</label>
+			<input class="form-control eg-input" type="password" name="password" />
+			<button type="submit" class="btn btn-primary btn-block mt-4" name="loginSubmit">Submit</button>
+		</form>
+	</div>
+	
 </body>
 </html>
