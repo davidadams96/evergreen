@@ -2,7 +2,7 @@
     $servername = "92.204.218.252";
     $DBusername = "evergreenusr";
 	$DBpassword = "6JRPwUrjUP2MynU";
-    $DBname = "evergreen";
+    $DBname = "evergreentask";
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$DBname", $DBusername, $DBpassword);
