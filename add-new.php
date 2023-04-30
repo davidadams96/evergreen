@@ -93,17 +93,6 @@
 					<input class="form-control" name="postcode" />
 				</div>
 			</div>
-			
-<!--
-			<input class="form-control" name="company" />
-			<input class="form-control" name="firstName" />
-			<input class="form-control" name="lastName" />
-			<input class="form-control" name="phone" />
-			<input class="form-control" name="addressOne" />
-			<input class="form-control" name="addressTwo" />
-			<input class="form-control" name="city" />
-			<input class="form-control" name="postcode" />
--->
 			<button type="submit" class="btn btn-primary btn-block mt-4" name="addNewClient">Submit new client</button>
 		</form>
 	</div>
