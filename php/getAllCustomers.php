@@ -8,7 +8,7 @@
 
 		$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn -> prepare("SELECT * FROM Customers ORDER BY LastName ASC");
+		$stmt = $conn -> prepare("SELECT * FROM `Customers` ORDER BY LastName ASC");
 		
 		$stmt -> execute();
 		
@@ -19,5 +19,11 @@
 		}
 		
 	}
+
+	catch(PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
+
+	$conn = null;
 
 ?>

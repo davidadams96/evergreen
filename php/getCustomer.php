@@ -10,7 +10,7 @@
 		
 		$customer = $_GET['customer'];
 		
-		$stmt = $conn -> prepare("SELECT * FROM Customers WHERE ID=$customer ORDER BY LastName ASC");
+		$stmt = $conn -> prepare("SELECT * FROM Customers WHERE ID=$customer");
 		
 		$stmt -> execute();
 		
@@ -26,5 +26,15 @@
 		}
 		
 	}
+
+	catch(PDOException $e) {
+				
+		$message = "<div class='alert alert-danger' role='alert'>There was an issue when adding this customer. Please try again.</div>";
+
+		$_SESSION['formResp'] = $message;
+		echo "Error: " . $e->getMessage();
+	}
+
+	$conn = null;
 
 ?>

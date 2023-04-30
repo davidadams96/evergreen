@@ -2,7 +2,7 @@
 
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
-		if (isset($_POST['newCustomer'])) {
+		if (isset($_POST['addCustomer'])) {
 		
 			try {
 				$conn = new PDO("mysql:host=$servername;dbname=$DBname", $DBusername, $DBpassword);
@@ -18,21 +18,43 @@
 				$city = $_POST['city'];
 				$postcode = $_POST['postcode'];
 				
-				$stmt = $conn -> prepare("INSERT INTO Customers (Company, FirstName, LastName, Phone, AddressOne, AddressTwo, City, Postcode) VALUES (?,?,?,?,?,?,?,?)");
+				if($company != "" && $firstName != "" && $lastName != ""){
 				
-				$stmt -> execute(array(
-					$company, $firstName, $lastName, $phone, $addressOne, $addressTwo, $city, $postcode
-				));
-				
-				if($stmt -> rowCount() > 0){
-					$message = "Success";
+					$stmt = $conn -> prepare("INSERT INTO Customers (Company, FirstName, LastName, Phone, AddressOne, AddressTwo, City, Postcode) VALUES (?,?,?,?,?,?,?,?)");
+
+					$stmt -> execute(array(
+						$company, $firstName, $lastName, $phone, $addressOne, $addressTwo, $city, $postcode
+					));
+
+					if($stmt -> rowCount() > 0){
+						
+						$message = "<div class='alert alert-success' role='alert'>Successfully added a new customer.</div>";
+						
+						$_SESSION['formResp'] = $message;
+						header("Location: add-new.php");
+					} else {
+						
+						$message = "<div class='alert alert-danger' role='alert'>There was an issue when adding this customer. Please try again.</div>";
+						
+						$_SESSION['formResp'] = $message;
+						header("Location: add-new.php");
+					}
+					
 				} else {
-					$message = "Fail";
+					
+					$message = "<div class='alert alert-danger' role='alert'>Please fill in all required fields.</div>";
+					
+					$_SESSION['formResp'] = $message;
+					header("Location: add-new.php");
 				}
 				
 			}
 			
 			catch(PDOException $e) {
+				
+				$message = "<div class='alert alert-danger' role='alert'>There was an issue when adding this customer. Please try again.</div>";
+				
+				$_SESSION['formResp'] = $message;
 				echo "Error: " . $e->getMessage();
 			}
 

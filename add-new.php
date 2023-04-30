@@ -1,3 +1,24 @@
+<?php 
+
+	session_start();
+
+	if(isset($_SESSION['evergreenLogin'])){
+	} else {
+		header("Location: index.php");
+	}
+
+	require "php/config.php";
+	require "php/add-customer.php";
+
+	$message = "";
+
+	if(isset($_SESSION['formResp'])){
+		$message = $_SESSION['formResp'];
+		unset($_SESSION['formResp']);
+	} 
+
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -6,7 +27,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 	
-<title>Evergreen Technical Task - Add new customer</title>
+<title>Evergreen Technical Task - Add New Customer</title>
 	
 <link rel="icon" type="image/png" href="">
 <link rel="stylesheet" href="css/main.css">	
@@ -35,15 +56,17 @@
 						<a class="nav-link active" href="add-new.php">Add new</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="add-new.php">Logout</a>
+						<a class="nav-link" href="php/logout.php">Logout</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	
+	<?php echo $message; ?>
+	
 	<div class="eg-container">
-		<form method="post">
+		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 			
 			<div class="row">
 				<div class="col-sm-12">
@@ -93,7 +116,7 @@
 					<input class="form-control" name="postcode" />
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-block mt-4" name="addNewClient">Submit new client</button>
+			<button type="submit" class="btn btn-primary btn-block mt-4" name="addCustomer">Submit new client</button>
 		</form>
 	</div>
 	

@@ -1,3 +1,73 @@
+<?php
+
+	session_start();
+
+    require_once "php/config.php";
+
+	$message = "";
+
+	if(isset($_SESSION['error'])){
+		$message = $_SESSION['error'];
+		unset($_SESSION['error']);
+	}
+
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+		try {
+
+			$conn = new PDO("mysql:host=$servername;dbname=$DBname", $DBusername, $DBpassword);
+
+			$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$username = $_POST['username'];
+			$pass = $_POST['password'];
+
+			$username = stripslashes($username);
+			$pass = stripslashes($pass);
+
+			$stmt = $conn -> prepare("SELECT * FROM Evergreen_users WHERE Username='$username'");
+
+			$stmt -> execute();
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if ($stmt->rowCount() == 1) {
+
+//				if (password_verify($pass, $row['Password'])){
+				if($pass == $row['Password']){
+
+					$_SESSION['evergreenLogin'] = $row['ID'];
+					header("Location: customers.php");
+
+				} else {
+					
+					$message = "Password Incorrect";
+					$_SESSION['error'] = $message;
+
+				}
+
+			} else {
+
+//				$message = "Please ensure the username and password you used are correct and try again.";
+				$message = "<div class='alert alert-danger' role='alert'>Please ensure the username and password you used are correct and try again.</div>";
+				$_SESSION['error'] = $message;
+
+			}
+
+		}
+
+		catch(PDOException $e) {
+
+			echo "Error: " . $e->getMessage();
+
+		}
+
+		$conn = null;
+
+	}
+
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -31,6 +101,7 @@
 			<button type="submit" class="btn btn-primary btn-block mt-4" name="loginSubmit">Submit</button>
 		</form>
 	</div>
+	<?php echo $message; ?>
 	
 </body>
 </html>
