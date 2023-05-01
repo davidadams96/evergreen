@@ -8,6 +8,9 @@
 
 		$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
+		/*
+		Using the current client's ID from the table, select from the database customers that match that client ID and store the results in an array
+		*/
 		$clientID = $_SESSION['evergreenLogin'];
 		
 		$stmt = $conn -> prepare("SELECT * FROM `Customers` WHERE ClientID='$clientID' ORDER BY LastName ASC");

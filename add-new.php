@@ -2,10 +2,18 @@
 
 	session_start();
 
+	/*
+	If the user has not logged in, redirect them back to the login page
+	*/
+
 	if(isset($_SESSION['evergreenLogin'])){
 	} else {
 		header("Location: index.php");
 	}
+
+	/*
+	Get the success and error messages stored in sessions 
+	*/
 
 	$message = "";
 

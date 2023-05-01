@@ -13,6 +13,10 @@
 
 			$username = stripslashes($username);
 			$pass = stripslashes($pass);
+			
+			/*
+			Select the row from the database where the username matches what was input by the user
+			*/
 
 			$stmt = $conn -> prepare("SELECT * FROM Evergreen_users WHERE Username='$username'");
 
@@ -20,6 +24,9 @@
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+			/*
+			If the username exists, check the encrypted password is correct. If it is, redirect to the customers page. Otherwise, reload the login page and display error message. 
+			*/
 			if ($stmt->rowCount() == 1) {
 
 				if (password_verify($pass, $row['Password'])){

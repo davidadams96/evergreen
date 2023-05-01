@@ -21,8 +21,14 @@
 				$city = $_POST['city'];
 				$postcode = $_POST['postcode'];
 				
+				/*
+				Ensure that all required fields aren't left blank. HTML validation has also been applied
+				*/
 				if(!empty($company) && !empty($firstName) && !empty($lastName) && !empty($phone) && !empty($addressOne) && !empty($city) && !empty($postcode)){
 				
+					/*
+					Inset the new customer into the customers table
+					*/
 					$stmt = $conn -> prepare("INSERT INTO Customers (ClientID, Company, FirstName, LastName, Phone, AddressOne, AddressTwo, City, Postcode) VALUES (?,?,?,?,?,?,?,?,?)");
 
 					$stmt -> execute(array(

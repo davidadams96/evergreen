@@ -2,6 +2,10 @@
 
 	session_start();
 
+	/*
+	If the user has not logged in, redirect them back to the login page
+	*/
+
 	if(isset($_SESSION['evergreenLogin'])){
 	} else {
 		header("Location: index.php");
@@ -37,14 +41,16 @@
 		var map; 
 		var geocoder;
 
+		//Define a new google maps object
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 0, lng: 0},
 			zoom: 14,
 			disableDefaultUI: true
 		});
-		
+
 		geocoder = new google.maps.Geocoder();
 	
+		//use the postcode and the geocoder resource from google maps to get the latitude and longitude values for the address. Display marker and set the centre co-ordinates of the map. 
 		geocoder.geocode({'address': '<?php echo $postcode; ?>'}, function(results, status){
 			if(status == "OK"){
 				map.setCenter(results[0].geometry.location);
@@ -83,6 +89,8 @@
 			</div>
 		</div>
 	</nav>
+	
+	<!-- Display the user information on the page -->
 	
 	<div class="eg-container">
 		<div class="row align-items-center">

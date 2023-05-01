@@ -2,6 +2,10 @@
 
 	session_start();
 
+	/*
+	If the user has not logged in, redirect them back to the login page
+	*/
+
 	if(isset($_SESSION['evergreenLogin'])){
 	} else {
 		header("Location: index.php");
@@ -62,31 +66,6 @@
 	
 	<div class="eg-container">
 		
-<!--
-		<div class="row p-2">
-			<div class="col-4 fw-bold">
-				Customer name
-			</div>
-			<div class="col-4 fw-bold">
-				Company
-			</div>
-		</div>
-		
-		<?php foreach ($customerArray as $customer): ?>
-		<div class="customer-item row align-items-center">
-			<div class="col-4">
-				<?php echo $customer['FirstName'] . " " . $customer['LastName']; ?>
-			</div>
-			<div class="col-4">
-				<?php echo $customer['Company']; ?>
-			</div>
-			<div class="col-4">
-				<a href="customer.php?customer=<?php echo $customer['ID'];?>" class="btn btn-primary btn-block">More details</a>
-			</div>
-		</div>
-		<?php endforeach; ?>
--->
-		
 		<table id="customersTable" class="w-100">
 			<thead>
 				<tr>
@@ -96,6 +75,7 @@
 				</tr>
 			</thead>
 			<tbody>
+				<!--Run a foreach statement for each customer stored in the array and display in the table-->
 				<?php foreach ($customerArray as $customer): ?>
 				<tr class="customer-item">
 					<td><?php echo $customer['FirstName'] . " " . $customer['LastName']; ?></td>
