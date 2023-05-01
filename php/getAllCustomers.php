@@ -8,7 +8,9 @@
 
 		$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn -> prepare("SELECT * FROM `Customers` ORDER BY LastName ASC");
+		$clientID = $_SESSION['evergreenLogin'];
+		
+		$stmt = $conn -> prepare("SELECT * FROM `Customers` WHERE ClientID='$clientID' ORDER BY LastName ASC");
 		
 		$stmt -> execute();
 		

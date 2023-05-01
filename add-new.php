@@ -7,15 +7,15 @@
 		header("Location: index.php");
 	}
 
-	require "php/config.php";
-	require "php/add-customer.php";
-
 	$message = "";
 
 	if(isset($_SESSION['formResp'])){
 		$message = $_SESSION['formResp'];
 		unset($_SESSION['formResp']);
 	} 
+
+	require "php/config.php";
+	require_once "php/add-customer.php";
 
 ?>
 
@@ -68,37 +68,39 @@
 	<div class="eg-container">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 			
+			<p>* indicates required field</p>
+			
 			<div class="row">
 				<div class="col-sm-12">
-					<label>Company name</label>
-					<input class="form-control" name="company" />
+					<label>Company name *</label>
+					<input class="form-control" name="company" required />
 				</div>
 			</div>
 			
 			<div class="row">
 				<label>Name</label>
 				<div class="col-sm-6">
-					<input class="form-control" name="firstName" />
-					<div class="form-text">First name</div>
+					<input class="form-control" name="firstName" required />
+					<div class="form-text">First name *</div>
 				</div>
 				<div class="col-sm-6">
-					<input class="form-control" name="lastName" />
-					<div class="form-text">Last name</div>
+					<input class="form-control" name="lastName" required />
+					<div class="form-text">Last name *</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<label>Phone number</label>
+				<label>Phone number *</label>
 				<div class="col-sm-12">
-					<input class="form-control" name="phone" />
+					<input class="form-control" name="phone" required />
 				</div>
 			</div>
 			
 			<div class="row">
 				<label>Address</label>
 				<div class="col-sm-6">
-					<input class="form-control" name="addressOne" />
-					<div class="form-text">Address line one</div>
+					<input class="form-control" name="addressOne" required />
+					<div class="form-text">Address line one *</div>
 				</div>
 				<div class="col-sm-6">
 					<input class="form-control" name="addressTwo" />
@@ -108,12 +110,12 @@
 			
 			<div class="row">
 				<div class="col-sm-6">
-					<label>City/Town</label>
-					<input class="form-control" name="city" />
+					<label>City/Town *</label>
+					<input class="form-control" name="city" required />
 				</div>
 				<div class="col-sm-6">
-					<label>Postcode</label>
-					<input class="form-control" name="postcode" />
+					<label>Postcode *</label>
+					<input class="form-control" name="postcode" required />
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary btn-block mt-4" name="addCustomer">Submit new client</button>

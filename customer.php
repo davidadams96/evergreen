@@ -39,7 +39,7 @@
 
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 0, lng: 0},
-			zoom: 13,
+			zoom: 14,
 			disableDefaultUI: true
 		});
 		
@@ -97,7 +97,12 @@
 				<p><?php echo $phone; ?></p>
 				
 				<p class="fw-bold">Address:</p>
-				<p><?php echo $addressOne . ", <br>" . $addressTwo . ", <br>" . $city . ", <br>" . $postcode; ?></p>
+				<p><?php echo $addressOne.",<br>"; 
+					if($addressTwo != ""){ 
+						echo $addressTwo.",<br>";
+					} 
+					echo $city.",<br>".$postcode; 
+				?></p>
 			</div>
 			<div class="col-md-6">
 				<div id="map">

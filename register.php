@@ -2,15 +2,48 @@
 
 	session_start();
 
-	$message = "";
-
-	if(isset($_SESSION['error'])){
-		$message = $_SESSION['error'];
-		unset($_SESSION['error']);
-	}
-
     require_once "php/config.php";
-	require_once "php/login.php";
+
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+		try {
+
+			$conn = new PDO("mysql:host=$servername;dbname=$DBname", $DBusername, $DBpassword);
+
+			$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$username = $_POST['username'];
+			$pass = $_POST['password'];
+
+			$username = stripslashes($username);
+			$pass = stripslashes($pass);
+			
+			$encoded_password = base64_encode($pass);
+			$hash = password_hash($pass, PASSWORD_BCRYPT);
+
+			$stmt = $conn -> prepare("INSERT INTO Evergreen_users (Username, Password) VALUES (?,?)");
+
+			$stmt -> execute(array(
+				$username, $hash
+			));
+
+			if($stmt -> rowCount() > 0){
+				header("Location: index.php");
+			} else {
+				header("Location: register.php");
+			}
+
+		}
+
+		catch(PDOException $e) {
+
+			echo "Error: " . $e->getMessage();
+
+		}
+
+		$conn = null;
+
+	}
 
 ?>
 
@@ -22,7 +55,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 	
-<title>Evergreen Technical Task - Login</title>
+<title>Evergreen Technical Task - Register</title>
 	
 <link rel="icon" type="image/png" href="">
 <link rel="stylesheet" href="css/main.css">	
@@ -38,13 +71,15 @@
 <body id="loginPage">
 	
 	<div class="eg-box">
-		<h1>Sign in test</h1>
+		<h1>Register</h1>
 		<form method="post" class="login-form">
+			<label>Name</label>
+			<input class="form-control eg-input" type="text" name="name" required />
 			<label>Email or username</label>
-			<input class="form-control eg-input" type="text" name="username" />
+			<input class="form-control eg-input" type="text" name="username" required />
 			<label>Password</label>
-			<input class="form-control eg-input" type="password" name="password" />
-			<button type="submit" class="btn btn-primary btn-block mt-4" name="loginSubmit">Submit</button>
+			<input class="form-control eg-input" type="password" name="password" required />
+			<button type="submit" class="btn btn-primary btn-block mt-4" name="registerSubmit">Submit</button>
 		</form>
 	</div>
 	<?php echo $message; ?>

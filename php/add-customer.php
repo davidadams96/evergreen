@@ -1,5 +1,7 @@
 <?php
 
+	session_start();
+
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		if (isset($_POST['addCustomer'])) {
@@ -10,6 +12,7 @@
 				$conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				
 				$company = $_POST['company'];
+				$clientID = $_SESSION['evergreenLogin'];
 				$firstName = $_POST['firstName'];
 				$lastName = $_POST['lastName'];
 				$phone = $_POST['phone'];
@@ -18,12 +21,12 @@
 				$city = $_POST['city'];
 				$postcode = $_POST['postcode'];
 				
-				if($company != "" && $firstName != "" && $lastName != ""){
+				if(!empty($company) && !empty($firstName) && !empty($lastName) && !empty($phone) && !empty($addressOne) && !empty($city) && !empty($postcode)){
 				
-					$stmt = $conn -> prepare("INSERT INTO Customers (Company, FirstName, LastName, Phone, AddressOne, AddressTwo, City, Postcode) VALUES (?,?,?,?,?,?,?,?)");
+					$stmt = $conn -> prepare("INSERT INTO Customers (ClientID, Company, FirstName, LastName, Phone, AddressOne, AddressTwo, City, Postcode) VALUES (?,?,?,?,?,?,?,?,?)");
 
 					$stmt -> execute(array(
-						$company, $firstName, $lastName, $phone, $addressOne, $addressTwo, $city, $postcode
+						$clientID, $company, $firstName, $lastName, $phone, $addressOne, $addressTwo, $city, $postcode
 					));
 
 					if($stmt -> rowCount() > 0){

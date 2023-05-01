@@ -34,6 +34,7 @@ li{
 	background-color: #535385!important;
 	width: 100%!important;
 	border: none!important;
+	margin: 20px 0px;
 }
 
 .navbar{
@@ -47,7 +48,6 @@ li{
 }
 
 .customer-item{
-	padding: 20px 10px;
 	border-bottom: 1px solid #CCCCCC;
 }
 

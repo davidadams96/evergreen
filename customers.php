@@ -30,6 +30,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+	
+<script src="js/customers.js"></script>
+	
 </head>
 
 <body>
@@ -57,6 +62,7 @@
 	
 	<div class="eg-container">
 		
+<!--
 		<div class="row p-2">
 			<div class="col-4 fw-bold">
 				Customer name
@@ -79,6 +85,27 @@
 			</div>
 		</div>
 		<?php endforeach; ?>
+-->
+		
+		<table id="customersTable" class="w-100">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Company</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($customerArray as $customer): ?>
+				<tr class="customer-item">
+					<td><?php echo $customer['FirstName'] . " " . $customer['LastName']; ?></td>
+					<td><?php echo $customer['Company']; ?></td>
+					<td><a href="customer.php?customer=<?php echo $customer['ID'];?>" class="btn btn-primary btn-block">More details</a></td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		
 	</div>
 	
 </body>
